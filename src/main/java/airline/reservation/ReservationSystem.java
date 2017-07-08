@@ -9,20 +9,20 @@ class ReservationSystem {
 
     ReservationSystem() {
         this.reservationRepository = new HashmapReservationRepository();
-        this.seatRepository = new SeatRepository();
+        this.seatRepository = new HashmapSeatRepository();
     }
 
-    void reserve(long seatId, String clientId) {
+    void reserve(String seatId, String clientId) {
         //TODO check business logic
-        Seat seat = seatRepository.getSeat(seatId);
+        Seat seat = seatRepository.findSeatById(seatId);
         if (seat == null)
             throw new ReservationException("Can't find such seat");
 
         if (seat.isReserved())
             throw new ReservationException("Seat is already reserved");
+        Reservation reservation = new Reservation(seat, clientId);
 
         seat.reserve();
-        Reservation reservation = new Reservation(seat, clientId);
         reservationRepository.save(reservation);
     }
 

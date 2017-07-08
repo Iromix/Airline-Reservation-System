@@ -1,8 +1,8 @@
 package airline.reservation;
 
-class SeatRepository {
-    //TODO implement
-    Seat getSeat(long seatId) {
-        return new Seat();
-    }
+interface SeatRepository {
+
+    Seat findSeatById(String seatId);
+
+    Seat findFirstFreeSeat();
 }
