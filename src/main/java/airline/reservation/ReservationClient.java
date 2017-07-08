@@ -1,15 +1,7 @@
 package airline.reservation;
 
-import java.util.UUID;
-
-class ReservationClient {
-    private String clientId;
+class ReservationClient extends GenericId {
 
     ReservationClient() {
-        clientId = UUID.randomUUID().toString();
-    }
-
-    String getId() {
-        return clientId;
     }
 }

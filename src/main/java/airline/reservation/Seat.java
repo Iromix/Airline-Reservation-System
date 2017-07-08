@@ -1,18 +1,10 @@
 package airline.reservation;
 
-import java.util.UUID;
-
-class Seat {
-    private String seatId;
+class Seat extends GenericId{
     private boolean reserved;
 
     Seat() {
-        seatId = UUID.randomUUID().toString();
         reserved = false;
-    }
-
-    public String getSeatId() {
-        return seatId;
     }
 
     void reserve() {
