@@ -1,8 +1,8 @@
-package airline.reservation;
+package airline.reservation.domain;
 
 import java.util.List;
 
-interface ReservationRepository {
+public interface ReservationRepository {
 
     void save(Reservation reservation);
 

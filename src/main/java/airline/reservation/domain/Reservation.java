@@ -1,9 +1,8 @@
-package airline.reservation;
+package airline.reservation.domain;
 
-import java.util.Date;
+import airline.shared.GenericId;
 
-class Reservation extends GenericId{
-    private Date reservationDate;
+public class Reservation extends GenericId {
     //TODO remove seat and make "reserve" function
     private Seat seat;
     private String clientId;
@@ -11,10 +10,9 @@ class Reservation extends GenericId{
     public Reservation(Seat seat, String clientId) {
         this.clientId = clientId;
         this.seat = seat;
-        reservationDate = new Date();
     }
 
-    String getClientId() {
+    public String getClientId() {
         return clientId;
     }
 }

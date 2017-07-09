@@ -1,11 +1,14 @@
-package airline.reservation;
+package airline.reservation.infrastracture;
+
+import airline.reservation.domain.Reservation;
+import airline.reservation.domain.ReservationRepository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-class HashmapReservationRepository implements ReservationRepository {
+public class HashmapReservationRepository implements ReservationRepository {
 
     private static final Map<String, Reservation> reservations = new HashMap<>();
 

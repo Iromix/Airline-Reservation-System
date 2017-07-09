@@ -1,15 +1,15 @@
-package airline.reservation;
+package airline.shared;
 
 import java.util.UUID;
 
-class GenericId {
+public class GenericId {
     private String id;
 
-    GenericId() {
+    public GenericId() {
         id = UUID.randomUUID().toString();
     }
 
-    String getId() {
+    public String getId() {
         return id;
     }
 }

@@ -1,6 +1,6 @@
-package airline.reservation;
+package airline.reservation.domain;
 
-interface SeatRepository {
+public interface SeatRepository {
 
     Seat findSeatById(String seatId);
 

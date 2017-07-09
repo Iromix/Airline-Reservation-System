@@ -1,18 +1,21 @@
-package airline.reservation;
+package airline.reservation.domain;
+
+import airline.reservation.infrastracture.HashmapReservationRepository;
+import airline.reservation.infrastracture.HashmapSeatRepository;
 
 import java.util.List;
 
-class ReservationSystem {
+public class ReservationSystem {
 
     private ReservationRepository reservationRepository;
     private SeatRepository seatRepository;
 
-    ReservationSystem() {
+    public ReservationSystem() {
         this.reservationRepository = new HashmapReservationRepository();
         this.seatRepository = new HashmapSeatRepository();
     }
 
-    void reserve(SeatRate seatRate, String clientId) {
+    public void reserve(SeatRate seatRate, String clientId) {
         Seat seat = seatRepository.findFirstFreeSeatWithRate(seatRate);
         if (seat == null)
             throw new ReservationException("There is no seat left with rate " + seatRate);
@@ -20,7 +23,7 @@ class ReservationSystem {
         reserve(seat.getId(), clientId);
     }
 
-    void reserve(String seatId, String clientId) {
+    public void reserve(String seatId, String clientId) {
         //TODO check business logic
         Seat seat = seatRepository.findSeatById(seatId);
         if (seat == null)
@@ -34,7 +37,7 @@ class ReservationSystem {
         reservationRepository.save(reservation);
     }
 
-    List<Reservation> getReservationsByClient(String clientId) {
+    public List<Reservation> getReservationsByClient(String clientId) {
         return reservationRepository.findReservationsByClientId(clientId);
     }
 }

@@ -1,9 +1,13 @@
-package airline.reservation;
+package airline.reservation.infrastracture;
+
+import airline.reservation.domain.Seat;
+import airline.reservation.domain.SeatRate;
+import airline.reservation.domain.SeatRepository;
 
 import java.util.HashMap;
 import java.util.Map;
 
-class HashmapSeatRepository implements SeatRepository {
+public class HashmapSeatRepository implements SeatRepository {
 
     private static final Map<String, Seat> seats = new HashMap<>();
 

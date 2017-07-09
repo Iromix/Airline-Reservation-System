@@ -1,22 +1,22 @@
 package airline.reservation;
 
+import airline.reservation.domain.*;
+import airline.reservation.infrastracture.HashmapSeatRepository;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
-//TODO add more scenario and then add more DDD structure
 public class ReservationTest {
 
     private static ReservationSystem reservationSystem;
     private static SeatRepository seatRepository;
-    private static ReservationClient client;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -25,34 +25,37 @@ public class ReservationTest {
     public static void setUp() {
         reservationSystem = new ReservationSystem();
         seatRepository = new HashmapSeatRepository();
-        client = new ReservationClient();
     }
 
     @Test
     public void clientShouldAddReservation_WithSpecificSeat() {
         //given
-        ReservationClient newClient = new ReservationClient();
+        String newClientId = getRandomClientId();
         String seatId = seatRepository.findFirstFreeSeat().getId();
 
         //when
-        reservationSystem.reserve(seatId, newClient.getId());
+        reservationSystem.reserve(seatId, newClientId);
 
         //then
-        List<Reservation> reservationsOfClient = reservationSystem.getReservationsByClient(newClient.getId());
+        List<Reservation> reservationsOfClient = reservationSystem.getReservationsByClient(newClientId);
         assertThat(reservationsOfClient.size(), equalTo(1));
     }
 
     @Test
     public void clientShouldAddReservation_WithChoosedClassSeat() {
         //given
-        ReservationClient newClient = new ReservationClient();
+        String newClientId = getRandomClientId();
 
         //when
-        reservationSystem.reserve(SeatRate.FIRST_CLASS, newClient.getId());
+        reservationSystem.reserve(SeatRate.FIRST_CLASS, newClientId);
 
         //then
-        List<Reservation> reservationsOfClient = reservationSystem.getReservationsByClient(newClient.getId());
+        List<Reservation> reservationsOfClient = reservationSystem.getReservationsByClient(newClientId);
         assertThat(reservationsOfClient.size(), equalTo(1));
+    }
+
+    private String getRandomClientId() {
+        return UUID.randomUUID().toString();
     }
 
     @Test
@@ -62,10 +65,11 @@ public class ReservationTest {
         thrown.expectMessage("Seat is already reserved");
 
         //given
+        String newClientId = getRandomClientId();
         String seatId = seatRepository.findFirstFreeSeat().getId();
-        reservationSystem.reserve(seatId, client.getId());
+        reservationSystem.reserve(seatId, newClientId);
 
         //when
-        reservationSystem.reserve(seatId, client.getId());
+        reservationSystem.reserve(seatId, newClientId);
     }
 }

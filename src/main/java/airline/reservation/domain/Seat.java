@@ -1,11 +1,13 @@
-package airline.reservation;
+package airline.reservation.domain;
 
-class Seat extends GenericId{
+import airline.shared.GenericId;
+
+public class Seat extends GenericId {
 
     private SeatRate rate;
     private boolean reserved;
 
-    Seat(SeatRate rate) {
+    public Seat(SeatRate rate) {
         this.rate = rate;
         reserved = false;
     }
@@ -20,11 +22,11 @@ class Seat extends GenericId{
         reserved = false;
     }
 
-    boolean isReserved() {
+    public boolean isReserved() {
         return reserved;
     }
 
-    SeatRate getRate() {
+    public SeatRate getRate() {
         return rate;
     }
 }

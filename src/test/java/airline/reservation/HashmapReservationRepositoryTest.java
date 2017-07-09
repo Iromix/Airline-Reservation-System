@@ -1,5 +1,7 @@
 package airline.reservation;
 
+import airline.reservation.domain.*;
+import airline.reservation.infrastracture.HashmapReservationRepository;
 import org.junit.*;
 
 import static org.hamcrest.core.IsEqual.equalTo;
