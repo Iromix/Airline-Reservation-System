@@ -1,9 +1,12 @@
 package airline.reservation;
 
 class Seat extends GenericId{
+
+    private SeatRate rate;
     private boolean reserved;
 
-    Seat() {
+    Seat(SeatRate rate) {
+        this.rate = rate;
         reserved = false;
     }
 
@@ -19,5 +22,9 @@ class Seat extends GenericId{
 
     boolean isReserved() {
         return reserved;
+    }
+
+    SeatRate getRate() {
+        return rate;
     }
 }

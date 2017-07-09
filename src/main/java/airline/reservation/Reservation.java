@@ -4,6 +4,7 @@ import java.util.Date;
 
 class Reservation extends GenericId{
     private Date reservationDate;
+    //TODO remove seat and make "reserve" function
     private Seat seat;
     private String clientId;
 

@@ -12,7 +12,7 @@ public class HashmapReservationRepositoryTest {
     @Test
     public void saveReservation() {
         //given
-        Reservation reservation = new Reservation(new Seat(), "abc1");
+        Reservation reservation = new Reservation(new Seat(SeatRate.POOR), "abc1");
 
         //when
         repository.save(reservation);
@@ -25,7 +25,7 @@ public class HashmapReservationRepositoryTest {
     @Test
     public void deleteReservation() {
         //given
-        Reservation reservation = new Reservation(new Seat(), "deleteRes1");
+        Reservation reservation = new Reservation(new Seat(SeatRate.POOR), "deleteRes1");
         repository.save(reservation);
         int amountOfReservations = repository.countReservations();
 
@@ -39,12 +39,12 @@ public class HashmapReservationRepositoryTest {
     @Test
     public void updateReservation() {
         //given
-        Reservation reservation = new Reservation(new Seat(), "clientId123");
+        Reservation reservation = new Reservation(new Seat(SeatRate.POOR), "clientId123");
         repository.save(reservation);
         int amountOfReservations = repository.countReservations();
 
         //when
-        repository.update(reservation.getId(), new Reservation(new Seat(), "ccc111"));
+        repository.update(reservation.getId(), new Reservation(new Seat(SeatRate.POOR), "ccc111"));
 
         //then
         assertThat(repository.countReservations(), equalTo(amountOfReservations));

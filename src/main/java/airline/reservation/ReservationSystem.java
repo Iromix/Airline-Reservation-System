@@ -12,6 +12,14 @@ class ReservationSystem {
         this.seatRepository = new HashmapSeatRepository();
     }
 
+    void reserve(SeatRate seatRate, String clientId) {
+        Seat seat = seatRepository.findFirstFreeSeatWithRate(seatRate);
+        if (seat == null)
+            throw new ReservationException("There is no seat left with rate " + seatRate);
+
+        reserve(seat.getId(), clientId);
+    }
+
     void reserve(String seatId, String clientId) {
         //TODO check business logic
         Seat seat = seatRepository.findSeatById(seatId);

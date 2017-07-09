@@ -1,6 +1,7 @@
 package airline.reservation;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -10,6 +11,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
+//TODO add more scenario and then add more DDD structure
 public class ReservationTest {
 
     private static ReservationSystem reservationSystem;
@@ -27,16 +29,29 @@ public class ReservationTest {
     }
 
     @Test
-    public void clientShouldAddReservation() {
+    public void clientShouldAddReservation_WithSpecificSeat() {
         //given
-        //todo create method to get free seat
-        String seatId = "asdasd";
+        ReservationClient newClient = new ReservationClient();
+        String seatId = seatRepository.findFirstFreeSeat().getId();
 
         //when
-        reservationSystem.reserve(seatId, client.getId());
+        reservationSystem.reserve(seatId, newClient.getId());
 
         //then
-        List<Reservation> reservationsOfClient = reservationSystem.getReservationsByClient(client.getId());
+        List<Reservation> reservationsOfClient = reservationSystem.getReservationsByClient(newClient.getId());
+        assertThat(reservationsOfClient.size(), equalTo(1));
+    }
+
+    @Test
+    public void clientShouldAddReservation_WithChoosedClassSeat() {
+        //given
+        ReservationClient newClient = new ReservationClient();
+
+        //when
+        reservationSystem.reserve(SeatRate.FIRST_CLASS, newClient.getId());
+
+        //then
+        List<Reservation> reservationsOfClient = reservationSystem.getReservationsByClient(newClient.getId());
         assertThat(reservationsOfClient.size(), equalTo(1));
     }
 

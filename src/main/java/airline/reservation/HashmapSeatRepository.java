@@ -12,12 +12,17 @@ class HashmapSeatRepository implements SeatRepository {
     }
 
     private static void initSeats() {
-        Seat seat1 = new Seat();
-        Seat seat2 = new Seat();
-        Seat seat3 = new Seat();
-        seats.put(seat1.getId(), seat1);
-        seats.put(seat2.getId(), seat2);
-        seats.put(seat3.getId(), seat2);
+        addSeats(100, SeatRate.FIRST_CLASS);
+        addSeats(100, SeatRate.STANDARD);
+        addSeats(100, SeatRate.POOR);
+    }
+
+    private static void addSeats(int numberOfSeats, SeatRate seatRate) {
+        Seat seat;
+        for (int i = 0; i< numberOfSeats; i++) {
+            seat = new Seat(seatRate);
+            seats.put(seat.getId(), seat);
+        }
     }
 
     @Override
@@ -32,6 +37,16 @@ class HashmapSeatRepository implements SeatRepository {
         for (Map.Entry<String, Seat> seatEntry : seats.entrySet()) {
             Seat seat = seatEntry.getValue();
             if (!seat.isReserved())
+                return seat;
+        }
+        return null;
+    }
+
+    @Override
+    public Seat findFirstFreeSeatWithRate(SeatRate seatRate) {
+        for (Map.Entry<String, Seat> seatEntry : seats.entrySet()) {
+            Seat seat = seatEntry.getValue();
+            if (!seat.isReserved() && seat.getRate() == seatRate)
                 return seat;
         }
         return null;
