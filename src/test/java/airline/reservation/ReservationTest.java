@@ -16,22 +16,22 @@ import static org.hamcrest.core.IsEqual.equalTo;
 public class ReservationTest {
 
     private static ReservationSystem reservationSystem;
-    private static SeatRepository seatRepository;
+    private static SeatService seatService;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @BeforeClass
     public static void setUp() {
-        reservationSystem = new ReservationSystem();
-        seatRepository = new HashmapSeatRepository();
+        seatService = new SeatService(new HashmapSeatRepository());
+        reservationSystem = new ReservationSystem(seatService);
     }
 
     @Test
     public void clientShouldAddReservation_WithSpecificSeat() {
         //given
         String newClientId = getRandomClientId();
-        String seatId = seatRepository.findFirstFreeSeat().getId();
+        String seatId = seatService.findFirstFreeSeat().getId();
 
         //when
         reservationSystem.reserve(seatId, newClientId);
@@ -66,7 +66,7 @@ public class ReservationTest {
 
         //given
         String newClientId = getRandomClientId();
-        String seatId = seatRepository.findFirstFreeSeat().getId();
+        String seatId = seatService.findFirstFreeSeat().getId();
         reservationSystem.reserve(seatId, newClientId);
 
         //when

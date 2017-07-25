@@ -55,4 +55,9 @@ public class HashmapSeatRepository implements SeatRepository {
         }
         return null;
     }
+
+    @Override
+    public void update(Seat seat) {
+        seats.put(seat.getId(), seat);
+    }
 }

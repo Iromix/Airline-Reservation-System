@@ -3,13 +3,12 @@ package airline.reservation.domain;
 import airline.shared.GenericId;
 
 public class Reservation extends GenericId {
-    //TODO remove seat and make "reserve" function
-    private Seat seat;
+    private String seatId;
     private String clientId;
 
-    public Reservation(Seat seat, String clientId) {
+    public Reservation(String seatId, String clientId) {
         this.clientId = clientId;
-        this.seat = seat;
+        this.seatId = seatId;
     }
 
     public String getClientId() {

@@ -7,4 +7,6 @@ public interface SeatRepository {
     Seat findFirstFreeSeat();
 
     Seat findFirstFreeSeatWithRate(SeatRate seatRate);
+
+    void update(Seat seat);
 }

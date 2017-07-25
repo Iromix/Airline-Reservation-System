@@ -14,11 +14,12 @@ public class Seat extends GenericId {
 
     void reserve() {
         if (reserved)
-            throw new RuntimeException("Seat is already reserved");
+            throw new ReservationException("Seat is already reserved");
+
         reserved = true;
     }
 
-    void releaseReservation() {
+    void release() {
         reserved = false;
     }
 
